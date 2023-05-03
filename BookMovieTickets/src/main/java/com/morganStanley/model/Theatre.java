@@ -61,10 +61,5 @@ public class Theatre {
 	public void setShow(List<Show> show) {
 		this.show = show;
 	}
-	
-	
-	
-
-	
 
 }

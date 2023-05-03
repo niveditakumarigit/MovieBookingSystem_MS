@@ -11,13 +11,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.morganStanley.Controller.SeatStatus;
 import com.morganStanley.ExceptionHandler.NotFoundException;
 import com.morganStanley.model.BookMovieTickets;
 import com.morganStanley.model.Movie;
 import com.morganStanley.model.Show;
 import com.morganStanley.model.Theatre;
 import com.morganStanley.repository.MovieRepository;
+import com.morganStanley.repository.SeatStatus;
 import com.morganStanley.repository.ShowRepository;
 
 @Service

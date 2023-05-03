@@ -1,4 +1,4 @@
-package com.morganStanley.Controller;
+package com.morganStanley.repository;
 
 public class SeatStatus
 {

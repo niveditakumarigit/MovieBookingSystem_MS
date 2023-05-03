@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.morganStanley.ServiceImp.MovieServiceImpl;
 import com.morganStanley.model.Movie;
+import com.morganStanley.repository.SeatStatus;
 
 @RestController
 

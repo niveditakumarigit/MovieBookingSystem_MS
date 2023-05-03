@@ -38,7 +38,6 @@ public class Show {
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "employee_id")
     @JoinColumn(name = "theatre_Id")
     private Theatre theatre;	
 	

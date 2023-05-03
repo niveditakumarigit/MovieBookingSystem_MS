@@ -14,12 +14,4 @@ public class BookMovieTicketsApplication {
 		SpringApplication.run(BookMovieTicketsApplication.class, args);
 	}
 	
-	@PostConstruct
-	public void MovieCreatedByAdmin() {
-		
-		AdminApiController admin = new AdminApiController();
-		//admin.createMovie();		
-		
-	}
-
 }
