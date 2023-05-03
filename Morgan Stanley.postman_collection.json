@@ -6,38 +6,19 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8085/actuator",
+			"name": "http://localhost:8085/getAllCities",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8085/actuator",
+					"raw": "http://localhost:8085/getAllCities",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8085",
 					"path": [
-						"actuator"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8085/test",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8085/test",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8085",
-					"path": [
-						"test"
+						"getAllCities"
 					]
 				}
 			},
@@ -59,66 +40,6 @@
 						"city",
 						"Bangalore",
 						"movies"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8085/getAllCities",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8085/getAllCities",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8085",
-					"path": [
-						"getAllCities"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8085/addShow",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "default"
-					},
-					{
-						"key": "Content-Type",
-						"value": "",
-						"type": "default",
-						"disabled": true
-					},
-					{
-						"key": "Content-Length",
-						"value": "a",
-						"type": "default",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\r\n\"showId\" : 23,\r\n\"movieId\" : 4,\r\n\"movieName\" : \"Dangal\",\r\n\"date\": \"2023-05-30\",\r\n\"theatreId\" :2,\r\n\"movieStartTiming\" : \"12:00:00\",\r\n\"movieEndTiming\" : \"15:00:00\"\r\n\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8085/addShow",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8085",
-					"path": [
-						"addShow"
 					]
 				}
 			},
@@ -240,25 +161,6 @@
 					"port": "8085",
 					"path": [
 						"addTheatre"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8085/getAllMovies",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8085/getAllMovies",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8085",
-					"path": [
-						"getAllMovies"
 					]
 				}
 			},
