@@ -1,6 +1,9 @@
 package com.morganStanley.ServiceImp;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -8,14 +11,24 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.morganStanley.Controller.SeatStatus;
+import com.morganStanley.ExceptionHandler.NotFoundException;
+import com.morganStanley.model.BookMovieTickets;
 import com.morganStanley.model.Movie;
+import com.morganStanley.model.Show;
+import com.morganStanley.model.Theatre;
 import com.morganStanley.repository.MovieRepository;
+import com.morganStanley.repository.ShowRepository;
 
 @Service
-public class MovieServiceImpl  {
+public class MovieServiceImpl {
 
 	@Autowired
 	MovieRepository movieRepo;
+	@Autowired
+	ShowRepository showRepo;
+	@Autowired
+	TheatreServiceImpl theatreService;
 
 	public List<Movie> addMovie(List<Movie> movie) {
 		movieRepo.saveAll(movie);
@@ -30,87 +43,121 @@ public class MovieServiceImpl  {
 		return allMovies;
 
 	}
-	
+
 	public Set<String> getAllCities() {
-		
+
 		List<Movie> allMovies = new ArrayList<>();
 		movieRepo.findAll().forEach(s -> allMovies.add(s));
-		Set<String> cities = allMovies.stream().map(s-> s.getCity()).collect(Collectors.toSet());
+		Set<String> cities = allMovies.stream().map(s -> s.getCity()).collect(Collectors.toSet());
 		return cities;
 
 	}
-	
-	public List<String> getAllMovieByCity(String cityName) {
+
+	public List<Movie> getAllMovieByCity(String cityName) {
 
 		List<Movie> allMovies = new ArrayList<>();
-		
+
 		movieRepo.findAll().forEach(s -> allMovies.add(s));
-		List<String> cities = allMovies.stream().filter(x-> x.getCity().equals(cityName)).map(s-> s.getCity()).collect(Collectors.toList());
-		return cities;
-
+		List<Movie> movieList = allMovies.stream().filter(x -> x.getCity().equals(cityName))
+				.collect(Collectors.toList());
+		return movieList;
 	}
-	
-	
-	
-	
-//	
-//	private static Map<String, List<Movie>> movieInCityMap = new HashMap<>();
-//	
-//	List<Movie> moviesList = new ArrayList<>();
-	
-	
-	/*
-	 * //Add movie to a particular city
-	 * 
-	 */
-//	public void addMovies(Movie movies) {
-//
-//		// List<Movie> addMovies = new ArrayList<>();
-//		// addMovies.add(movies);
-//		ArrayList tempList = null;
-//		if (movieInCityMap.containsKey(movies.getCity())) {
-//			tempList = (ArrayList) movieInCityMap.get(movies.getCity());
-//
-//			//tempList.add(addMovies);
-//			tempList.add(movies);
-//		} else {
-//			tempList = new ArrayList();
-//			//tempList.add(addMovies);
-//			tempList.add(movies);
-//		}
-//		movieInCityMap.put(movies.getCity(), tempList);
-//	}
-//
-//	/* Return list of movies based on city */
-//	public static List<Movie> getMoviesByCity(String city) {
-//		return movieInCityMap.get(city);
-//	}
-//
-//	/* Return list of all movies */
-//	public static Map<String, List<Movie>> getAllCities() {
-//		
-//		return movieInCityMap;
-//
-//	}
-//	
-//
-//	public static Set<Movie> getAllMovies() {
-//		Set<List<Movie>> movieList =  movieInCityMap.entrySet().stream().map(a-> a.getValue()).collect(Collectors.toSet());
-//		Set<Movie> flattenedList = movieList.stream().flatMap(List::stream).collect(Collectors.toSet());
-//		//Map<Integer, String > map = flattenedList.stream().collect(Collectors.toMap(s->s.getMovieId(), s->s.getMovieName()));
-//		//Set<String> names = flattenedList.stream().map(s-> s.getMovieName()).collect(Collectors.toSet());
-//		System.out.println(flattenedList);
-//	
-//		
-//		return flattenedList;
-//	}
-//	
-	
-	
 
-	// If required
-	// public void editMovie();
+	public List<SeatStatus> getAvailableSeats(int movieId, int theatreId, int showId) {
 
-	// public void deleteMovie();
+		List<Theatre> theatreDetails = theatreService.getAllTheatres().stream().filter(s -> s.getMovieId() == movieId)
+				.filter(s -> s.getTheatreId() == theatreId).toList();
+
+		if (theatreDetails.isEmpty()) {
+			// Error, return
+			throw new NotFoundException("Not valid theatre Id or movie Id");
+		}
+
+		List<Show> showDetails = theatreService.getShow().stream().filter(s -> s.getShowId() == showId).toList();
+
+		if (showDetails.isEmpty()) {
+			// Error, return
+			throw new NotFoundException("Not valid show Id");
+		}
+
+		boolean[] seatAvailability = showDetails.get(0).getSeatAvailability();
+		List<SeatStatus> statusList = new ArrayList<>();
+		for (int i = 0; i < seatAvailability.length; i++) {
+			SeatStatus status = new SeatStatus();
+			status.seatNumber = i + 1;
+			status.isAvailable = seatAvailability[i];
+			statusList.add(status);
+		}
+		return statusList;
+	}
+
+	public HashMap<String, String> bookMovieTicket(BookMovieTickets bookTickets) {
+
+		int theatreId = bookTickets.getTheatreId();
+		int movieId = bookTickets.getMovieId();
+		int showId = bookTickets.getShowId();
+		LocalDate movieDate = bookTickets.getDate();
+		LocalTime movieTiming = bookTickets.getMovieTiming();
+		List<Integer> seatToBook = bookTickets.getSeatsToBook();
+
+		HashMap<String, String> map = new HashMap<>();
+
+		List<Theatre> theatreDetails = theatreService.getAllTheatres().stream()
+				.filter(x -> x.getTheatreId() == theatreId).filter(x -> x.getMovieId() == movieId).toList();
+
+		if (theatreDetails.isEmpty()) {
+			// Error, return
+			map.put("error", "Not Valid movieId or theatreId ");
+			return map;
+		}
+		List<Show> showDetails = theatreService.getShow().stream().filter(s -> s.getShowId() == showId).toList();
+
+		if (showDetails.isEmpty()) {
+			map.put("error", "Not Valid showId or date or start time ");
+			return map;
+		}
+
+		Show show = showDetails.get(0);
+
+		int dateComaparison = show.getDate().compareTo(movieDate);
+		if (dateComaparison != 0) {
+			map.put("error", "Not Valid Date selected ");
+			return map;
+
+		}
+
+		int timeComaparison = show.getMovieStartTiming().compareTo(movieTiming);
+		if (timeComaparison != 0) {
+			map.put("error", "Not Valid time selected ");
+			return map;
+
+		}
+
+		boolean[] seatAvailability = show.getSeatAvailability();
+		int totalSeats = show.getTotalSeats();
+		for (int i : seatToBook) {
+			if (i < 1 || i > totalSeats) {
+
+				map.put("error", "Seat to book is greater than total seat or less than 0 ");
+				return map;
+			}
+
+			if (!seatAvailability[i - 1]) {
+				map.put("error", "Seat not available");
+				return map;
+
+			}
+		}
+
+		// TODO: Check with theater if seat still available
+		// Acquire exclusive lock for each seat to be booked
+		for (int i : seatToBook) {
+			seatAvailability[i - 1] = false;
+		}
+
+		showRepo.save(show);
+		map.put("success", "Successfully booked tickets");
+		return map;
+	}
 
 }

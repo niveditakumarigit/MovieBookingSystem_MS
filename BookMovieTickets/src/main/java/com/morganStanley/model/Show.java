@@ -2,11 +2,13 @@ package com.morganStanley.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,6 +22,7 @@ public class Show {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "show_Id")
 	private int showId;
 	
 	@Column
@@ -34,16 +37,20 @@ public class Show {
 	private boolean[] seatAvailability;
 	
 	
-	@ManyToOne
-    @JoinColumn(name = "THEATRE_ID")
+	@ManyToOne(fetch = FetchType.EAGER)
+    //@JoinColumn(name = "employee_id")
+    @JoinColumn(name = "theatre_Id")
     private Theatre theatre;	
 	
 	
-	public Show() {
+	public Show() {};
+	public Show(int totalSeats) {
 		super();
 		if(totalSeats > 0)
 		{
 			this.seatAvailability = new boolean[totalSeats];
+			Arrays.fill(seatAvailability, true);
+			
 		}		
 	}
 	
@@ -64,6 +71,30 @@ public class Show {
 	public LocalDate getDate() {
 		return date;
 	}
+	public int getTotalSeats() {
+		return totalSeats;
+	}
+
+	public void setTotalSeats(int totalSeats) {
+		this.totalSeats = totalSeats;
+	}
+
+	public boolean[] getSeatAvailability() {
+		return seatAvailability;
+	}
+
+	public void  setSeatAvailability(boolean[] seatAvailability) {
+		this.seatAvailability = seatAvailability;
+	}
+
+	public LocalTime getMovieStartTiming() {
+		return movieStartTiming;
+	}
+
+	public LocalTime getMovieEndTiming() {
+		return movieEndTiming;
+	}
+
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}

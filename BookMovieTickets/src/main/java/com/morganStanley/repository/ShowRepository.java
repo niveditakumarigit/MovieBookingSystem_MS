@@ -1,9 +1,18 @@
 package com.morganStanley.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.morganStanley.model.Show;
 
-public interface ShowRepository extends CrudRepository<Show, Integer>{
+@Repository
+public interface ShowRepository extends JpaRepository<Show, Integer>{
 
+	
+	 @Query("select s from Show s where s.theatre.theatreId = :theatreId")
+	 List<Show> findByTheatreId(@Param("theatreId") int theatreId);
 }

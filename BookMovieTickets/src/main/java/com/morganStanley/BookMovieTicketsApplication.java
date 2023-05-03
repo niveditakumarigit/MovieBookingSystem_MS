@@ -3,7 +3,7 @@ package com.morganStanley;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.morganStanley.Controller.AdminController;
+import com.morganStanley.Controller.AdminApiController;
 
 import jakarta.annotation.PostConstruct;
 
@@ -17,7 +17,7 @@ public class BookMovieTicketsApplication {
 	@PostConstruct
 	public void MovieCreatedByAdmin() {
 		
-		AdminController admin = new AdminController();
+		AdminApiController admin = new AdminApiController();
 		//admin.createMovie();		
 		
 	}
