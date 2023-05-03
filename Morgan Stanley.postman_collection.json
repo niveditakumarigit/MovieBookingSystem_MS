@@ -1,0 +1,324 @@
+{
+	"info": {
+		"_postman_id": "1f601fca-ed27-49ea-9b21-7cc36727ff8d",
+		"name": "Morgan Stanley",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8085/actuator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/actuator",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"actuator"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8085/test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8085/city/movies/Bangalore",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/city/Bangalore/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"city",
+						"Bangalore",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8085/getAllCities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/getAllCities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"getAllCities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8085/addShow",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"type": "default",
+						"disabled": true
+					},
+					{
+						"key": "Content-Length",
+						"value": "a",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"showId\" : 23,\r\n\"movieId\" : 4,\r\n\"movieName\" : \"Dangal\",\r\n\"date\": \"2023-05-30\",\r\n\"theatreId\" :2,\r\n\"movieStartTiming\" : \"12:00:00\",\r\n\"movieEndTiming\" : \"15:00:00\"\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8085/addShow",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"addShow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8085/getShow",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"type": "default",
+						"disabled": true
+					},
+					{
+						"key": "Content-Length",
+						"value": "a",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8085/getShow",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"getShow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8085/addMovies",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n       \r\n        \"movieName\": \"Drishyam\",\r\n        \"movieDuration\": 0,\r\n        \r\n        \"city\": \"Bangalore\"\r\n    },\r\n\r\n    {   \r\n        \"movieName\": \"Dark\",\r\n        \"movieDuration\": 0,\r\n        \"city\": \"Bangalore\"\r\n    },\r\n    {\r\n        \r\n        \"movieName\": \"Bahubali\",\r\n        \"movieDuration\": 0,\r\n        \"city\": \"Pune\"\r\n    },\r\n    {\r\n       \r\n        \"movieName\": \"PK\",\r\n        \"movieDuration\": 0,\r\n       \r\n        \"city\": \"Bangalore\"\r\n    },\r\n\r\n     {\r\n        \r\n        \"movieName\": \"Drishyam\",\r\n        \"movieDuration\": 0,\r\n        \r\n        \"city\": \"Mumbai\"\r\n    },\r\n\r\n     {\r\n        \r\n        \"movieName\": \"RRR\",\r\n        \"movieDuration\": 0,\r\n        \"city\": \"Bangalore\"\r\n    }\r\n]"
+				},
+				"url": {
+					"raw": "http://localhost:8085/addMovies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"addMovies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8085/getAllMovies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/getAllMovies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"getAllMovies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8085/addTheatre",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"theatreName\": \"PVR\",\r\n    \"theatreAddress\" : \"JP nagar\",\r\n    \"movieId\" : 2,\r\n    \r\n    \"show\": [\r\n                {\r\n                \r\n                \"date\": \"2023-05-30\",\r\n                \"movieStartTiming\" : \"12:00:00\",\r\n                \"movieEndTiming\" : \"15:00:00\",\r\n                \"totalSeats\": 10\r\n\r\n                },\r\n\r\n                 {\r\n                \r\n                \"date\": \"2023-06-30\",\r\n                \"movieStartTiming\" : \"14:00:00\",\r\n                \"movieEndTiming\" : \"15:00:00\",\r\n                \"totalSeats\": 15\r\n\r\n                }\r\n            ]\r\n}\r\n\r\n\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8085/addTheatre",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"addTheatre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8085/getAllMovies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/getAllMovies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"getAllMovies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8085/getAvailableSeats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/getAvailableSeats?movieId=2&theatreId=1&showId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"getAvailableSeats"
+					],
+					"query": [
+						{
+							"key": "movieId",
+							"value": "2"
+						},
+						{
+							"key": "theatreId",
+							"value": "1"
+						},
+						{
+							"key": "showId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8085/bookTicket",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"showId\":1\r\n    \"movieId\":1\r\n    \"theatreId\":1\r\n    \"seatsToBook\": [{2, 3}]\r\n}  "
+				},
+				"url": {
+					"raw": "http://localhost:8085/bookTicket",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"bookTicket"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
